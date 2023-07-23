@@ -1,0 +1,15 @@
+{
+  "name": "crud-of-account",
+  "version": "1.0.0",
+  "description": "A basic CRUD of an account for the Compass UOL Scholarship program",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/Uju-Chinedum/CRUD-of-Users"
+  },
+  "author": "Uju Chinedum",
+  "license": "ISC"
+}
