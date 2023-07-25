@@ -59,7 +59,7 @@ AccountSchema.pre("save", async function () {
 
 AccountSchema.methods.createJWT = function () {
     return jwt.sign(
-        { accountId: this._id, name: this.email },
+        { accountId: this._id, email: this.email },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_LIFETIME }
     );
