@@ -7,3 +7,7 @@ const createAccount = async (req, res) => {
 
     res.status(StatusCodes.CREATED).json({ account });
 };
+
+module.exports = {
+    createAccount,
+};

@@ -1,8 +1,9 @@
-const express = require("express")
+const express = require("express");
+const { createAccount } = require("../controllers/account");
 
-const router = express.Router()
+const router = express.Router();
 
-router.route("/").get().post()
-router.route("/:id").get().patch().delete()
+router.route("/").get().post(createAccount);
+router.route("/:id").get().patch().delete();
 
-module.exports = router
+module.exports = router;
