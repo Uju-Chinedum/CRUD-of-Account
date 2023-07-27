@@ -10,7 +10,10 @@ const authenticateAccount = require("../middleware/authentication");
 const router = express.Router();
 
 router.route("/").post(createAccount);
-app.use(authenticateAccount)
-router.route("/:id").get(getAccount).patch(updateAccount).delete(deleteAccount);
+router
+    .route("/:id")
+    .get(getAccount, authenticateAccount)
+    .patch(updateAccount, authenticateAccount)
+    .delete(deleteAccount, authenticateAccount);
 
 module.exports = router;
