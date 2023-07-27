@@ -30,6 +30,11 @@ const AccountSchema = new mongoose.Schema({
         required: [true, "Please provide password"],
         minlength: 6,
     },
+    passwordConfirm: {
+        type: String,
+        required: [true, "Please provide password"],
+        minlength: 6,
+    },
     carType: {
         type: String,
         enum: ["SEDAN", "SUV", "SEMI_LUXURY", "LUXURY"],
@@ -52,9 +57,14 @@ const AccountSchema = new mongoose.Schema({
     },
 });
 
+AccountSchema.methods.confirmPassword = function () {
+    return this.password === this.passwordConfirm;
+};
+
 AccountSchema.pre("save", async function () {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
+    this.passwordConfirm = this.password;
 });
 
 AccountSchema.methods.createJWT = function () {
