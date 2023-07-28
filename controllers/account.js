@@ -1,12 +1,12 @@
 const Account = require("../models/Account");
 const { StatusCodes } = require("http-status-codes");
-const { NotFound, Unauthorized } = require("../errors");
+const { BadRequest, NotFound } = require("../errors");
 
 const createAccount = async (req, res) => {
     const account = await Account.create(req.body);
     const checkPassword = account.confirmPassword();
     if (!checkPassword) {
-        throw new Unauthorized([
+        throw new BadRequest([
             { resource: "Password", message: "Password must match" },
         ]);
     }
@@ -38,7 +38,7 @@ const updateAccount = async (req, res) => {
     }
     const checkPassword = account.confirmPassword();
     if (!checkPassword) {
-        throw new Unauthorized([
+        throw new BadRequest([
             { resource: "Password", message: "Password must match" },
         ]);
     }
