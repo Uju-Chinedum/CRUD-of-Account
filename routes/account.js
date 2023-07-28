@@ -10,10 +10,8 @@ const authenticateAccount = require("../middleware/authentication");
 const router = express.Router();
 
 router.route("/").post(createAccount);
-router
-    .route("/:id")
-    .get(getAccount, authenticateAccount)
-    .patch(updateAccount, authenticateAccount)
-    .delete(deleteAccount, authenticateAccount);
+router.get("/:id", authenticateAccount, getAccount);
+router.patch("/:id", authenticateAccount, updateAccount);
+router.delete("/:id", authenticateAccount, deleteAccount);
 
 module.exports = router;

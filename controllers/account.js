@@ -27,7 +27,7 @@ const getAccount = async (req, res) => {
 
 const updateAccount = async (req, res) => {
     const { id: accountId } = req.params;
-    const account = await Account.findOneAndUpdate(
+    let account = await Account.findByIdAndUpdate(
         { _id: accountId },
         req.body,
         { new: true, runValidators: true }
@@ -43,13 +43,14 @@ const updateAccount = async (req, res) => {
         ]);
     }
 
+    account = await account.save()
     res.status(StatusCodes.OK).json({ account });
 };
 
 const deleteAccount = async (req, res) => {
     const { id: accountId } = req.params;
 
-    const account = Account.findByIdAndDelete({ _id: accountId });
+    const account = await Account.findByIdAndRemove({ _id: accountId });
     if (!account) {
         throw new NotFound(`No account with id ${accountId}`);
     }
