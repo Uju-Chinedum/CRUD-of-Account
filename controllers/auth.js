@@ -46,7 +46,7 @@ const logout = async (req, res) => {
         const token = req.get("Authorization").replace("Bearer ", "");
         addToBlacklist(token);
 
-        res.status(204).send();
+        res.status(StatusCodes.NO_CONTENT).send();
     } catch (error) {
         console.log(error);
     }

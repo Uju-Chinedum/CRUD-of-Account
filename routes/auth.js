@@ -5,6 +5,6 @@ const authenticateAccount = require("../middleware/authentication");
 const router = express.Router();
 
 router.post("/login", login);
-router.post("/logout", authenticateAccount, logout);
+router.delete("/logout", authenticateAccount, logout);
 
 module.exports = router;
