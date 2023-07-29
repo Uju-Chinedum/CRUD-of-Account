@@ -1,6 +1,8 @@
-const Account = require("../models/Account");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequest, Unauthorized } = require("../errors");
+const { addToBlacklist } = require("../middleware/blacklist");
+const connectDB = require("../db/connect");
+const Account = require("../models/Account");
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -34,10 +36,20 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    //     const { email, password } = req.body;
-    //     if (!email || !password) {
-    //         throw new BadRequest("Please provide email/password");
-    //     }
+    try {
+        await connectDB(process.env.MONGO_URI);
+
+        if (!req.account) {
+            throw new Unauthorized("User not authenticated");
+        }
+
+        const token = req.get("Authorization").replace("Bearer ", "");
+        addToBlacklist(token);
+
+        res.status(204).send();
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 module.exports = {
