@@ -62,7 +62,7 @@ AccountSchema.methods.confirmPassword = function () {
 };
 
 AccountSchema.pre("save", async function () {
-    if (!this.modified("password")) return;
+    if (!this.isModified("password")) return;
 
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
