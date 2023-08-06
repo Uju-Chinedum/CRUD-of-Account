@@ -22,7 +22,15 @@ const getAccount = async (req, res) => {
         throw new NotFound(`No account with id ${accountId}`);
     }
 
-    res.status(StatusCodes.OK).json({ account });
+    res.status(StatusCodes.OK).json({
+        firstName: account.firstName,
+        lastName: account.lastName,
+        email: account.email,
+        carType: account.carType,
+        zipCode: account.zipCode,
+        city: account.city,
+        country: account.country,
+    });
 };
 
 const updateAccount = async (req, res) => {
@@ -43,8 +51,19 @@ const updateAccount = async (req, res) => {
         ]);
     }
 
-    account = await account.save()
-    res.status(StatusCodes.OK).json({ account });
+    account = await account.save();
+    const token = user.createJWT();
+
+    res.status(StatusCodes.OK).json({
+        firstName: account.firstName,
+        lastName: account.lastName,
+        email: account.email,
+        carType: account.carType,
+        zipCode: account.zipCode,
+        city: account.city,
+        country: account.country,
+        token,
+    });
 };
 
 const deleteAccount = async (req, res) => {
