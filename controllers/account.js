@@ -16,21 +16,13 @@ const createAccount = async (req, res) => {
 
 const getAccount = async (req, res) => {
     const { id: accountId } = req.params;
-    const account = await Account.findOne({ _id: accountId });
+    const account = await Account.findOne({ _id: accountId }).select("-password");
 
     if (!account) {
         throw new NotFound(`No account with id ${accountId}`);
     }
 
-    res.status(StatusCodes.OK).json({
-        firstName: account.firstName,
-        lastName: account.lastName,
-        email: account.email,
-        carType: account.carType,
-        zipCode: account.zipCode,
-        city: account.city,
-        country: account.country,
-    });
+    res.status(StatusCodes.OK).json({account});
 };
 
 const updateAccount = async (req, res) => {
@@ -39,7 +31,7 @@ const updateAccount = async (req, res) => {
         { _id: accountId },
         req.body,
         { new: true, runValidators: true }
-    );
+    ).select("-password");
 
     if (!account) {
         throw new NotFound(`No account with id ${accountId}`);
@@ -52,18 +44,9 @@ const updateAccount = async (req, res) => {
     }
 
     account = await account.save();
-    const token = user.createJWT();
+    const token = account.createJWT();
 
-    res.status(StatusCodes.OK).json({
-        firstName: account.firstName,
-        lastName: account.lastName,
-        email: account.email,
-        carType: account.carType,
-        zipCode: account.zipCode,
-        city: account.city,
-        country: account.country,
-        token,
-    });
+    res.status(StatusCodes.OK).json({account});
 };
 
 const deleteAccount = async (req, res) => {
