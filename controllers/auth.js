@@ -36,20 +36,14 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    try {
-        await connectDB(process.env.MONGO_URI);
-
-        if (!req.account) {
-            throw new Unauthorized("User not authenticated");
-        }
-
-        const token = req.get("Authorization").replace("Bearer ", "");
-        addToBlacklist(token);
-
-        res.status(StatusCodes.NO_CONTENT).send();
-    } catch (error) {
-        console.log(error);
+    if (!req.account) {
+        throw new Unauthorized("User not authenticated");
     }
+
+    const token = req.get("Authorization").replace("Bearer ", "");
+    addToBlacklist(token);
+
+    res.status(StatusCodes.NO_CONTENT).send();
 };
 
 module.exports = {

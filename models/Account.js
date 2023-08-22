@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { Unauthorized } = require("../errors");
 
 const AccountSchema = new mongoose.Schema({
     firstName: {
@@ -62,7 +63,7 @@ AccountSchema.methods.confirmPassword = function () {
 };
 
 AccountSchema.pre("save", async function () {
-    if (!this.isModified("password")) return;
+    if (!this.isModified("password") || !this.isModified("password")) return;
 
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -80,6 +81,12 @@ AccountSchema.methods.createJWT = function () {
 AccountSchema.methods.comparePassword = async function (candidate) {
     const isMatch = await bcrypt.compare(candidate, this.password);
     return isMatch;
+};
+
+AccountSchema.methods.confirmUser = async function (req, resourceId) {
+    if (req.account.accountId !== resourceId) {
+        throw new Unauthorized("Not authorized to edit this information");
+    } else return;
 };
 
 module.exports = mongoose.model("Account", AccountSchema);
