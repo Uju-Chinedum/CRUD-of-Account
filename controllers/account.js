@@ -76,7 +76,15 @@ const updatePassword = async (req, res) => {
     account.passwordConfirm = account.password;
 
     await account.save();
-    res.status(StatusCodes.OK).json({ account });
+    res.status(StatusCodes.OK).json({
+        firstName: account.firstName,
+        lastName: account.lastName,
+        email: account.email,
+        carType: account.carType,
+        zipCode: account.zipCode,
+        city: account.city,
+        country: account.country,
+    });
 };
 
 const deleteAccount = async (req, res) => {
