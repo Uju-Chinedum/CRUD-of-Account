@@ -34,15 +34,15 @@ The application implements the following routes:
 
 ### Account Routes
 
--   **POST /api/v1/account**: Creates a new account
--   **GET /api/v1/account/:id**: Gets a specific user account by ID
--   **PATCH /api/v1/account/:id**: Update an existing user account by ID
--   **DELETE /api/v1/account/:id**: Delete a user account by ID
+- **POST /api/v1/account**: Creates a new account
+- **GET /api/v1/account/:id**: Gets a specific user account by ID
+- **PATCH /api/v1/account/:id**: Update an existing user account by ID
+- **DELETE /api/v1/account/:id**: Delete a user account by ID
 
 ### Authentication Routes
 
--   **POST /api/v1/auth/login**: Authenticate user login credentials and start a session
--   **DELETE /api/v1/auth/logout**: End the current user session
+- **POST /api/v1/auth/login**: Authenticate user login credentials and start a session
+- **DELETE /api/v1/auth/logout**: End the current user session
 
 ## Usage
 
@@ -78,10 +78,10 @@ This project is licensed under the **[MIT License](https://mit-license.org/)**
 
 ## Resources
 
--   [Node.js](nodejs.org) - Official website for Node.js
--   [NPM](npmjs.com) - Official website for NPM
--   [Express.js](expressjs.com) - Official website for Express.js
--   [MongoDB](mongodb.com) - Official website for MongoDB
--   [Mongoose.js](mongoosejs.com) - Official website for Mongoose
--   [Bcrypt.js](https://github.com/dcodeIO/bcrypt.js/blob/master/README.md) - Official website for Bcrypt.js
--   [JSON Web Token](https://jwt.io) - Official website for JWT
+- [Node.js](nodejs.org) - Official website for Node.js
+- [NPM](npmjs.com) - Official website for NPM
+- [Express.js](expressjs.com) - Official website for Express.js
+- [MongoDB](mongodb.com) - Official website for MongoDB
+- [Mongoose.js](mongoosejs.com) - Official website for Mongoose
+- [Bcrypt.js](https://github.com/dcodeIO/bcrypt.js/blob/master/README.md) - Official website for Bcrypt.js
+- [JSON Web Token](https://jwt.io) - Official website for JWT
